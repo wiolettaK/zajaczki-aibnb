@@ -1,3 +1,8 @@
 $primary-color: #4059AD;
 $secondary-color: #6B9AC4;
 $addictional-color: #97D8C4;
+
+ :export {
+     primary: $primary-color;
+     secondary: $secondary-color;
+   }
