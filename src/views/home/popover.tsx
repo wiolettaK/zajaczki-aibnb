@@ -1,0 +1,55 @@
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Popover from '@material-ui/core/Popover';
+import Typography from '@material-ui/core/Typography';
+import ClickCounter from "./clickCounter";
+import { TextField } from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+  typography: {
+    padding: theme.spacing(1),
+  },
+}));
+
+export default function SimplePopover(this: any) {
+  const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event:any ): void => {
+ setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
+
+  return (
+    <div>
+      <TextField disabled aria-describedby={id} variant="outlined" color="primary" onClick={handleClick} defaultValue="Goście"/>
+      <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+         PaperProps={{
+           style: { width: '250px' },
+         }}
+      >
+        <Typography className={classes.typography} >
+           <ClickCounter />
+            </Typography>
+      </Popover>
+    </div>
+  );
+}

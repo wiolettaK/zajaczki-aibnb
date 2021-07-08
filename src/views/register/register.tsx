@@ -15,7 +15,7 @@ import React, { FunctionComponent, useState } from "react";
 import { Link } from "react-router-dom";
 import colors from "styles/variables.module.scss";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: any) => ({
   paper: {
     marginTop: theme.spacing(8),
     display: "flex",
@@ -53,7 +53,7 @@ const Register: FunctionComponent<any> = (): JSX.Element => {
   const classes = useStyles();
   const validEmailRegex = new RegExp(/[a-z0-9._%+-]+@[a-z0-9.-]+[.][a-z]{2,}$/);
 
-  const [values, setValues] = useState({
+  const [values, setState] = useState({
     firstName: "",
     lastName: "",
     email: "",
@@ -69,7 +69,7 @@ const Register: FunctionComponent<any> = (): JSX.Element => {
     },
   });
   const validateFiltr = (name: string, value: string): void => {
-    let error;
+    let error: string;
 
     switch (name) {
       case "email":
@@ -86,7 +86,7 @@ const Register: FunctionComponent<any> = (): JSX.Element => {
         error =
           value.length < 8
             ? "Zbyt krótkie hasło (minimum 8 znaków)."
-            : (error =
+            : (
                 values.password &&
                 values.confirmPassword &&
                 values.password === values.confirmPassword
@@ -101,13 +101,19 @@ const Register: FunctionComponent<any> = (): JSX.Element => {
         error = "";
         break;
     }
-
-    setValues({
-      ...values,
-      [name]: value,
-      errors: { ...values.errors, [name]: error },
+    
+    setState(prevState => {
+      return {
+        ...prevState,
+        [name]: value,
+        errors: { ...prevState.errors, [name]: error },
+      };
     });
-    console.log(values.errors);
+    // setValues({
+    //    ...values,
+    //    [name]: value,
+    //    errors: { ...values.errors, [name]: error },
+    //  });
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -129,17 +135,16 @@ const Register: FunctionComponent<any> = (): JSX.Element => {
   const submitForm = (e: React.FormEvent): void => {
     const { firstName, lastName, email, password, confirmPassword } = values;
     e.preventDefault();
-    if (validateForm()){
+    if (validateForm()){  
        alert("Zarejestrowano");
      }else{
       validateFiltr("firstName", firstName);
-      console.log('gg', firstName);
       validateFiltr("lastName", lastName);
       validateFiltr("email", email);
-      console.log(values.errors);
       validateFiltr("password", password);
- 
-      console.log(values.errors);
+      if (password.length > 7){
+        validateFiltr("confirmPassword", confirmPassword);
+      }
     }
   };
 
