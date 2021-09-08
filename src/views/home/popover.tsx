@@ -4,6 +4,7 @@ import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
 import ClickCounter from "./clickCounter";
 import { TextField } from '@material-ui/core';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
 
 const useStyles = makeStyles((theme) => ({
   typography: {
@@ -14,6 +15,8 @@ const useStyles = makeStyles((theme) => ({
 export default function SimplePopover(this: any) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const adults = useAppSelector((state) => state.guestCounter.adults);
 
   const handleClick = (event:any ): void => {
  setAnchorEl(event.currentTarget);
@@ -28,7 +31,7 @@ export default function SimplePopover(this: any) {
 
   return (
     <div>
-      <TextField disabled aria-describedby={id} variant="outlined" color="primary" onClick={handleClick} defaultValue="Goście"/>
+      <TextField disabled aria-describedby={id} variant="outlined" color="primary" onClick={handleClick} defaultValue="Goście" value={adults}/>
       <Popover
         id={id}
         open={open}

@@ -109,11 +109,6 @@ const Register: FunctionComponent<any> = (): JSX.Element => {
         errors: { ...prevState.errors, [name]: error },
       };
     });
-    // setValues({
-    //    ...values,
-    //    [name]: value,
-    //    errors: { ...values.errors, [name]: error },
-    //  });
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {

@@ -19,7 +19,7 @@ import { Link } from "react-router-dom";
 import "./login.scss";
 import colors from "styles/variables.module.scss";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme : any) => ({
   paper: {
     marginTop: theme.spacing(8),
     display: "flex",
